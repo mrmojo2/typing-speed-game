@@ -36,7 +36,8 @@ void readfile(char* buffer){
 }
 
 int main(){
-	int n,wpm;
+	int n,timetaken;
+	float wpm;
 	char allwords[MAX_WORD_LENGTH][MAX_WORDS],buffer[2048],randwords[MAX_WORD_LENGTH][PLAY_WORDS],input[2048],inparr[MAX_WORD_LENGTH][MAX_WORDS];
 	time_t start,stop;
 	
@@ -54,8 +55,10 @@ int main(){
 	printf("\n");
 	fgets(input,sizeof(input),stdin);
 	stop=time(NULL);
-	wpm=(PLAY_WORDS/(stop-start))*60;
-	printf("your speed is %d wpm\n",wpm);
+	timetaken=stop-start;
+	printf("\ntime taken: %d\n",timetaken);
+	wpm=(PLAY_WORDS/((double)timetaken))*60;
+	printf("your speed is %.2f wpm\n",wpm);
 	
 	
 }
