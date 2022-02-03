@@ -36,8 +36,8 @@ void readfile(char* buffer){
 }
 
 int main(){
-	int n,timetaken;
-	float wpm;
+	int n,timetaken,correct=0;
+	float wpm,accuracy;
 	char allwords[MAX_WORD_LENGTH][MAX_WORDS],buffer[2048],randwords[MAX_WORD_LENGTH][PLAY_WORDS],input[2048],inparr[MAX_WORD_LENGTH][MAX_WORDS];
 	time_t start,stop;
 	
@@ -54,11 +54,24 @@ int main(){
 	
 	printf("\n");
 	fgets(input,sizeof(input),stdin);
+	seperator(input,inparr);
+	
+	for(int i=0;i<PLAY_WORDS;i++){
+		if(strcmp(randwords[i],inparr[i])==0){
+			correct++;
+		}
+	}
+	
 	stop=time(NULL);
 	timetaken=stop-start;
-	printf("\ntime taken: %d\n",timetaken);
-	wpm=(PLAY_WORDS/((double)timetaken))*60;
-	printf("your speed is %.2f wpm\n",wpm);
-	
-	
+	accuracy=(((double)correct)/PLAY_WORDS)*100;
+		
+	if(accuracy>65){
+		printf("\ntime taken: %d\nAccuracy: %.2f\%\n",timetaken,accuracy);
+		wpm=(PLAY_WORDS/((double)timetaken))*60;
+		printf("Raw WPM: %.2f wpm\n",wpm);
+	}else{
+		printf("\nMinimm accuray of 65\% required\n");
+	}
+		
 }
